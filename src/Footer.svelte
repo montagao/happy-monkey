@@ -6,7 +6,7 @@
 <footer class="footer">
     <div class="content">
         <p>
-            fork me on 
+            <s>spoon</s> fork me on 
             <a href={githubUrl} target="_blank">github</a>!
         </p>
     </div>
