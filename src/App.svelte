@@ -58,7 +58,7 @@
 
     form {
         font-family: "Shantell Sans", sans-serif;
-        font-size: 12px;
+        font-size: 16px;
         margin: auto;
         margin-top: 100px;
         text-align: center;
