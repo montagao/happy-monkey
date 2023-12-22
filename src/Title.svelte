@@ -4,7 +4,7 @@
 </script>
 
 <div class="title">
-    <h1 class="title">happy monkey maker</h1>
+    <h1 class="title">monkey doodler</h1>
     <h2 class="christmas-tree">merry christmas! -  Monta 🎄</h2>
 </div>
 
