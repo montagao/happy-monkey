@@ -21,12 +21,21 @@
         console.log("Image loaded:", event.target);
         event.target.classList.add("loaded");
     }
+    // Function to toggle overlay visibility
+    function toggleOverlay(event) {
+        // Find the closest parent with class 'thumbnail'
+        const thumbnail = event.currentTarget;
+        // Find the overlay within this thumbnail
+        const overlay = thumbnail.querySelector(".prompt-overlay");
+        // Toggle the 'active' class
+        overlay.classList.toggle("active");
+    }
 </script>
 
 <h2>previous doodles ッ</h2>
 <div class="gallery">
     {#each images as image (image.id)}
-        <div class="thumbnail" title={image.prompt}>
+        <div class="thumbnail" title={image.prompt} on:click={toggleOverlay}>
             <img
                 src={image.url}
                 alt={image.prompt}
@@ -96,5 +105,8 @@
 
     .thumbnail:hover .prompt-overlay {
         opacity: 1; /* Fully visible on hover */
+    }
+    .prompt-overlay.active {
+        opacity: 1;
     }
 </style>
