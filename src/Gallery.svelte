@@ -32,7 +32,7 @@
     }
 </script>
 
-<h2>previous doodles ッ</h2>
+<h2>previous doodles </h2>
 <div class="gallery">
     {#each images as image (image.id)}
         <div class="thumbnail" title={image.prompt} on:click={toggleOverlay}>
