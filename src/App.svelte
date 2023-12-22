@@ -4,6 +4,7 @@
     import Title from "./Title.svelte";
     import GenerationOutput from "./GenerationOutput.svelte";
     import Gallery from "./Gallery.svelte";
+    import Footer from "./Footer.svelte";
 
     let password = "";
     const correctHash = 108301; // This should be the hash of the correct password
@@ -30,6 +31,7 @@
         <DoodleInput />
         <GenerationOutput />
         <Gallery />
+        <Footer />
     {:else}
         <form>
             <input hidden type="text" autocomplete="username" value="" />
