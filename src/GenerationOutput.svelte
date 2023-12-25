@@ -43,22 +43,56 @@
 {/if}
 
 <style>
+    @import url("https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500&display=swap");
+
     .generation-output {
         transition: all 0.5s ease-in-out;
-        /* Add styles here to match your design */
-        width: 300px; /* Adjust size as needed */
-        height: 300px; /* Adjust size as needed */
-        border: 1px solid #ccc; /* Example border, adjust as needed */
+        width: 300px;
+        height: 300px;
+        border: 2px dashed #ffc107; /* Monkey yellow */
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         margin: 1rem;
+        background-color: #fff3e0; /* Light monkey themed background */
+        box-shadow: 0px 0px 10px 5px rgba(255, 193, 7, 0.2); /* Soft shadow */
+        border-radius: 15px; /* Rounded corners */
+        font-family: "Baloo Tamma 2", cursive; /* Fun, playful font */
     }
 
     .generation-output img {
         max-width: 100%;
         max-height: 100%;
+        border-radius: 15px; /* Rounded corners for the image */
+    }
+
+    .generation-output p {
+        color: #4e342e; /* Dark monkey brown */
+        text-align: center;
+        font-size: 1.2rem;
+        margin-top: 1rem;
+    }
+
+    /* Keyframes for a simple bounce animation */
+    @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-30px);
+        }
+        60% {
+            transform: translateY(-15px);
+        }
+    }
+
+    /* Applying bounce animation to the spinner */
+    SpinLine {
+        animation: bounce 2s infinite;
     }
 </style>
-

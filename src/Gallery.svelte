@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
 
     const API_URL = import.meta.env.VITE_API_URL;
+    import { SyncLoader } from "svelte-loading-spinners";
     let images = [];
 
     onMount(async () => {
@@ -16,11 +17,24 @@
         }
     });
 
-    function onLoad(event) {
-        // Add a class to the image element when it's loaded
-        console.log("Image loaded:", event.target);
-        event.target.classList.add("loaded");
+    let isLoading = true;
+    let imagesLoaded = 0;
+
+    // Function called each time an image finishes loading
+    function onImageLoad() {
+        imagesLoaded += 1;
+        console.log("im here", imagesLoaded);
+        console.log(images.length);
+        if (imagesLoaded === images.length) {
+            // All images are loaded, now display them
+            console.log("im giga here ");
+            document.querySelectorAll(".image").forEach((img) => {
+                img.style.opacity = 1;
+            });
+            isLoading = false;
+        }
     }
+
     // Function to toggle overlay visibility
     function toggleOverlay(event) {
         // Find the closest parent with class 'thumbnail'
@@ -32,15 +46,26 @@
     }
 </script>
 
-<h2>previous doodles </h2>
+<h2>previous doodles</h2>
+{#if isLoading}
+    <div class="loading">
+        <SyncLoader color="#F6BE00" />
+    </div>
+{/if}
 <div class="gallery">
-    {#each images as image (image.id)}
-        <div class="thumbnail" title={image.prompt} on:click={toggleOverlay}>
+    {#each images as image, index (image.id)}
+        <div
+            class="thumbnail"
+            title={image.prompt}
+            on:click={toggleOverlay}
+            style="animation-delay: {index * 100}ms; opacity: 0;"
+            on:load={onImageLoad}
+        >
             <img
                 src={image.url}
                 alt={image.prompt}
                 class="image"
-                on:load={onLoad}
+                on:load={onImageLoad}
             />
             <div class="prompt-overlay">
                 {image.prompt}
@@ -60,29 +85,31 @@
     }
 
     .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1rem;
+        justify-content: center;
         margin-top: 1rem;
-        overflow-y: auto;
+        overflow-y: hidden; /* Hide vertical scrollbar */
         margin-bottom: 5rem;
     }
 
     .thumbnail {
         position: relative;
-        width: 150px;
-        height: 150px;
         border: 1px solid #ccc;
         overflow: hidden;
+        aspect-ratio: 1 / 1; /* Makes the container square */
+        animation: fadeIn 0.5s ease-in;
+        animation-fill-mode: both;
     }
 
     .thumbnail img {
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures images cover the thumbnail area */
         display: block;
         opacity: 1;
-        transition: opacity 0.5s ease-in-out; /* Transition for the image opacity */
+        transition: opacity 0.5s ease-in-out;
     }
 
     .prompt-overlay {
@@ -108,5 +135,16 @@
     }
     .prompt-overlay.active {
         opacity: 1;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 </style>

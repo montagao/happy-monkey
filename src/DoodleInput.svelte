@@ -2,7 +2,14 @@
     import { onMount } from "svelte";
     import { generatedImageUrl, isGenerating } from "./store.js";
 
-    let subject = "a happy little monkey";
+    const monkeys = [
+        "a happy little orangutan",
+        "a happy little chimpanzee",
+        "a happy little bonobo",
+        "a happy little macaque",
+    ];
+    const subject = monkeys[Math.floor(Math.random() * monkeys.length)];
+
     let activity = "";
     let style = "";
     let activityPlaceholder = "";
@@ -88,10 +95,11 @@
 </script>
 
 <div class="input">
+    <img class="monkeygif" src="monkey.png" alt="monkey" />
     <div class="input-area">
         <div class="single-input">
             <label>
-                Doodle me {subject}...
+                Doodle me a happy little monkey...
                 <input
                     type="text"
                     bind:value={activity}
@@ -109,13 +117,15 @@
                 />
             </label>
         </div>
-        <button on:click={generateImage}>generate 🙈</button>
+        <button class="generate-button" on:click={generateImage}
+            >generate 🙈</button
+        >
     </div>
 </div>
 
 <style>
     .input {
-        margin-top: 3rem;
+        margin-top: 1rem;
     }
     .single-input {
         display: flex;
@@ -123,6 +133,12 @@
         align-items: center;
         justify-content: center;
         text-align: center;
+    }
+    .monkeygif {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        border: 1px solid #f6be00;
+        margin-bottom: 1rem;
     }
     .input-area {
         font-family: "Shantell Sans", sans-serif;
@@ -140,7 +156,27 @@
     .input-area input {
         color: #000; /* Or any other color you want for the input text */
     }
+    .generate-button {
+        color: #ffffff; /* Dark monkey brown */
+        background-color: #f6be00; /* Monkey yellow */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 1rem;
+    }
+
+    .generate-button:hover {
+        background-color: #ffb300; /* Slightly darker yellow */
+        transform: scale(1.05); /* Slightly larger on hover */
+    }
+
+    .generate-button:active {
+        transform: scale(0.95); /* Slightly smaller when clicked */
+    }
 
     /* Additional CSS styles */
 </style>
-
