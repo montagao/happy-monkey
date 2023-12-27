@@ -18,7 +18,7 @@
             <span class="letter">{letter}</span>
         {/each} ✍
     </h1>
-    <h2 class="christmas-tree">merry christmas - Monta 🎄</h2>
+    <h2 class="christmas-tree">joyeux noël - Monta 🎄</h2>
     <!--
     <h2 class="christmas-tree">
         {#each subtitle.split("") as letter}
