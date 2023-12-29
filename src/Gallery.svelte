@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import ImageViewer from "./ImageViewer.svelte";
 
     const API_URL = import.meta.env.VITE_API_URL;
     import { SyncLoader } from "svelte-loading-spinners";
@@ -44,6 +45,16 @@
         // Toggle the 'active' class
         overlay.classList.toggle("active");
     }
+
+    let selectedImage = null;
+
+    function openImageViewer(image) {
+        selectedImage = image;
+    }
+
+    function closeImageViewer() {
+        selectedImage = null;
+    }
 </script>
 
 <h2>previous doodles</h2>
@@ -69,10 +80,15 @@
             />
             <div class="prompt-overlay">
                 {image.prompt}
+                <span
+                    class="expand-emoji"
+                    on:click={() => openImageViewer(image)}>🔍</span
+                >
             </div>
         </div>
     {/each}
 </div>
+<ImageViewer {selectedImage} onClose={closeImageViewer} />
 
 <style>
     @keyframes fadeIn {
@@ -146,5 +162,26 @@
             opacity: 1;
             transform: translateY(0);
         }
+    }
+
+    .expand-emoji,
+    .minimize-emoji {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+
+    .minimize-emoji {
+        display: none;
+    }
+
+    .thumbnail.expanded .minimize-emoji {
+        display: block;
+    }
+
+    .thumbnail.expanded .expand-emoji {
+        display: none;
     }
 </style>
